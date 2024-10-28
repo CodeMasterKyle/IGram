@@ -1,0 +1,59 @@
+<!--FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
+</FrameLayout-->
+
+<!--LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:clipToPadding="false"
+        android:padding="4dp" />
+
+</LinearLayout-->
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layout_gravity="start" /> <!-- Размещаем разделитель слева -->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:scaleType="centerCrop" />
+
+
+    <View
+        android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layout_gravity="end" /> <!-- Размещаем разделитель справа -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+    android:background="@android:color/white"
+    android:layout_gravity="bottom" />
+
+
+
+</FrameLayout>
