@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User's Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px 0;
+        }
+        .photo {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<h1>User's Gallery</h1>
+<div class="gallery" id="gallery"></div>
+
+<script>
+    const userId = window.location.pathname.split('/').pop(); 
+    const apiUrl = `https://sumba-srv-clusster-nochache.dkon.app/api/search?query=${userId}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('gallery').innerHTML = `<p>${data.error}</p>`;
+                return;
+            }
+
+            const gallery = document.getElementById('gallery');
+            data.items.forEach(item => {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'photo';
+                const img = document.createElement('img');
+                img.src = item.imgUrl;
+                img.alt = `Фото от пользователя ${item.fromUserId}`;
+                photoDiv.appendChild(img);
+                gallery.appendChild(photoDiv);
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            document.getElementById('gallery').innerHTML = `<p>An error occurred while loading the gallery.</p>`;
+        });
+</script>
+
+</body>
+</html>
