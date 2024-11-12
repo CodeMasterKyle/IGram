@@ -4,6 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User's Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);   
+            gap: 10px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px 0;
+        }
+        .photo {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;  
+        }
+        .photo img {
+            width: 100%;
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;  
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .floating-button:hover {
+            background-color: #0056b3; /* Цвет кнопки при наведении */
+        }
+    </style>
+</head>
+<body>
+
+<h1>User's Gallery</h1>
+<div class="gallery" id="gallery"></div>
+
+<button class="floating-button" id="galleryButton">🔗</button>
+
+<script>
+    const userId = window.location.pathname.split('/').pop(); 
+    const apiUrl = `https://sumba-srv-clusster-nochache.dkon.app/api/search?query=${userId}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('gallery').innerHTML = `<p>${data.error}</p>`;
+                return;
+            }
+
+            const gallery = document.getElementById('gallery');
+            data.items.forEach(item => {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'photo';
+                const img = document.createElement('img');
+                img.src = item.imgUrl;
+                img.alt = `Фото от пользователя ${item.fromUserId}`;
+                photoDiv.appendChild(img);
+                gallery.appendChild(photoDiv);
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            document.getElementById('gallery').innerHTML = `<p>Произошла ошибка при загрузке галереи.</p>`;
+        });
+
+    document.getElementById('galleryButton').addEventListener('click', () => {
+        window.location.href = `https://dkon.app/${userId}/gallery`;
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
+<!--!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User's Gallery</title>
    <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,4 +182,4 @@
 </script>
 
 </body>
-</html>
+</html--->
