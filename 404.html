@@ -19,7 +19,7 @@
         }
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);   
+            grid-template-columns: repeat(3, 1fr); 
             gap: 10px;
             width: 90%;
             max-width: 1200px;
@@ -30,7 +30,7 @@
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            background-color: #fff;  
+            background-color: #fff; 
         }
         .photo img {
             width: 100%;
@@ -39,9 +39,10 @@
         }
         .floating-button {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #007bff;  
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            background-color: #007bff; 
             color: white;
             border: none;
             border-radius: 50%;
@@ -54,9 +55,18 @@
             align-items: center;
             justify-content: center;
             transition: background-color 0.3s;
+            animation: float 3s ease-in-out infinite; 
         }
         .floating-button:hover {
-            background-color: #0056b3; /* Цвет кнопки при наведении */
+            background-color: #0056b3; 
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translate(-50%, -50%) translateY(0); 
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-10px); 
+            }
         }
     </style>
 </head>
